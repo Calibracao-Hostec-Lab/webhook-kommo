@@ -1,1 +1,27 @@
+name: Webhook Handler
+
+on:
+  workflow_dispatch: # Para execução manual (teste inicial)
+  repository_dispatch: # Para capturar eventos de webhooks
+    types: [webhook_event]
+
+jobs:
+  handle_webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Process webhook data
+        run: |
+          echo "Processando dados do webhook..."
+          echo "${{ github.event.client_payload }}" > webhook.json
+          echo "Webhook processado com sucesso!"
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add webhook.json
+          git commit -m "Atualizado com os dados do webhook"
+          git push
 
