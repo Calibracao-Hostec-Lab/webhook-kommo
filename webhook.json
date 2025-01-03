@@ -1,1 +1,8 @@
+{
+  "event_type": "webhook_event",
+  "client_payload": {
+    "key1": "value1",
+    "key2": "value2"
+  }
+}
 
